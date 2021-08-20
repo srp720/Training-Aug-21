@@ -1,0 +1,100 @@
+Post
+	PostId
+	Date 
+	Description
+	DonationTypeId
+	Location_Name
+	City
+	State
+	Longitude
+	Latitude
+	People_Count
+	ImageURL
+	Created_By
+	Created_At
+	Updated_By
+	Updated_At
+	Close_At
+	Pincode
+
+Role
+	Role_PermissionID
+	RoleType
+	Permission_Add
+	Permission_Edit
+	Permission_View 
+	Permission_Delete
+
+User
+	UserId
+	User_Type
+	First_Name
+	Last_Name
+	Location
+	Occupation
+	Profile_Image
+	User_Name
+	Email_Address
+	Password HASH
+	Mobile_No.
+	Verified Mob No. 
+	User_Status
+	Additional_Info
+	Total_Post_Count
+	Daily_Post_Limit
+	Last_Posted_Date
+
+Event
+
+	EventId
+	EventName
+	EventDate
+	EndDate
+	StartTime
+	EndTime
+	EventType
+	CreatedBy
+	CreatedAt
+	UpdatedBy
+	UpdatedAt
+
+Organisation
+
+	NgoId
+	NgoUserId FK User
+	Ngo Name
+	Ngo Email Address FK User
+	Ngo Address
+	Ngo Description
+	Ngo Contact No.
+	Ngo Logo_url
+	Additional Info	
+
+DonationType
+
+	DonationTypeId
+	DonationTypeName
+	CreatedBy
+	CreatedAt
+	UpdatedBy
+	UpdatedAt
+
+Volunteer
+
+	VolunteerId
+	VolunteerUserId FK User
+	VolunteerName FK User
+
+Help
+
+	Location FK Post
+	People_Count
+
+City
+
+	DHRUVIT
+
+State
+
+	DHRUVIT
+
