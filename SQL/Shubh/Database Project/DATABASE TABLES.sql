@@ -118,3 +118,101 @@ CREATE TABLE States (
 	UpdatedBy VARCHAR(50) NOT NULL, 
 	UpdatedAt DATETIME NOT NULL
 	)
+CREATE TABLE Module (
+    ModuleId BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Module PRIMARY KEY,
+    ModuleName VARCHAR(30),
+    ModuleType VARCHAR(20),
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    )
+
+ 
+
+CREATE TABLE Organisation (
+    OrganisationId BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Organisation PRIMARY KEY,
+    OrganisationUserId BIGINT NOT NULL,
+    OrganisationName VARCHAR(50),
+    OrganisationAddress VARCHAR(MAX),
+    OrganisationDescription TEXT NOT NULL,
+    OrganisationContactNo NVARCHAR(50) NOT NULL,
+    OrganisationLogoURL NVARCHAR(MAX) NOT NULL,
+    AdditionalInfo TEXT,
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    )
+ALTER TABLE Organisation WITH CHECK ADD CONSTRAINT FK_OrgUser FOREIGN KEY(OrganisationUserId) REFERENCES Users(UserId)
+
+ 
+
+CREATE TABLE ContributionType (
+    ContributionTypeId BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Contro PRIMARY KEY,
+    ContributionTypeName VARCHAR(50) NOT NULL,
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    )
+
+ 
+
+CREATE TABLE Volunteer (
+    VolunteerId BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Volunteer PRIMARY KEY,
+    VolunteerUserId BIGINT NOT NULL,
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    )
+ALTER TABLE Volunteer WITH CHECK ADD CONSTRAINT FK_Volunteer FOREIGN KEY(VolunteerUserId) REFERENCES Users(UserId)
+
+ 
+
+CREATE TABLE Place (
+    PlaceID BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Help PRIMARY KEY,
+    Locations VARCHAR(50) NOT NULL,
+    PeopleCount BIGINT NOT NULL,
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    )
+
+ 
+
+CREATE TABLE Urgency (
+    UrgencyId BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Urgent PRIMARY KEY,
+    PostId BIGINT NOT NULL,
+    UserId BIGINT NOT NULL,
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    )
+ALTER TABLE Urgency WITH CHECK ADD CONSTRAINT FK_UrgentPost FOREIGN KEY(PostId) REFERENCES Post(PostId)
+ALTER TABLE Urgency WITH CHECK ADD CONSTRAINT FK_UrgentUser FOREIGN KEY(UserId) REFERENCES Users(UserId)
+
+ 
+
+CREATE TABLE Spam (
+    SpamId BIGINT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Spam PRIMARY KEY,
+    PostId BIGINT NOT NULL,
+    UserId BIGINT NOT NULL,
+    SpamLimit BIT NOT NULL,
+    IsPublished BIT NOT NULL,
+    CreatedBy VARCHAR(50) NOT NULL, 
+    CreatedAt DATETIME NOT NULL, 
+    UpdatedBy VARCHAR(50) NOT NULL, 
+    UpdatedAt DATETIME NOT NULL
+    ) 
+ALTER TABLE Spam WITH CHECK ADD CONSTRAINT FK_SpamPost FOREIGN KEY(PostId) REFERENCES Post(PostId)
+ALTER TABLE Spam WITH CHECK ADD CONSTRAINT FK_SpamUser FOREIGN KEY(UserId) REFERENCES Users(UserId)
