@@ -1,14 +1,14 @@
-create table Employee (
-	EmployeeId int not null primary key, 
-	FirstName varchar (30) not null, 
-	LastName varchar (30) not null, 
-	Salary money, 
-	JoiningDate DATETIME not null, 
-	Department char(25) not null, 
-	ManagerId int)
+CREATE TABLE Employee (
+	EmployeeId INT NOT NULL PRIMARY KEY, 
+	FirstName VARCHAR (30) NOT NULL, 
+	LastName VARCHAR (30) NOT NULL, 
+	Salary MONEY, 
+	JoiningDate DATETIME NOT NULL, 
+	Department CHAR(25) NOT NULL, 
+	ManagerId INT)
 
 
-insert into Employee values 
+INSERT INTO Employee VALUES
 (1,'John','Abraham',1000000,'2013/01/01 12:00:00 AM','Banking',null),
 (2,'Ricky','Ponting',800000,'2013/01/01 12:00:00 AM','Insurance',1),
 (3,'McCalister','Thomas',700000,'2013/02/01 12:00:00 AM','Banking',1),
@@ -20,15 +20,15 @@ insert into Employee values
 
 
 
-create table Incentives (
-	EmployeeRefId int not null 
-	constraint fk_empid foreign key references Employee(EmployeeId) 
-	constraint pk_empref primary key, 
-	IncentiveDate date,
-	IncentiveAmount money
+CREATE TABLE Incentives (
+	EmployeeRefId INT NOT NULL 
+	CONSTRAINT fk_empid FOREIGN KEY REFERENCES Employee(EmployeeId) 
+	CONSTRAINT pk_Incentives PRIMARY KEY, 
+	IncentiveDate DATE,
+	IncentiveAmount MONEY
 	)
 
-insert into Incentives values 
+INSERT INTO Incentives VALUES
 	(1,'2013-02-1',5000),
 	(2,'2013-2-1',3000),
 	(3,'2013-02-01',4000)
@@ -38,23 +38,33 @@ insert into Incentives values
 
 --Query-1
 --Get difference between JOINING_DATE and INCENTIVE_DATE from employee and incentives table
-SELECT e.FirstName, e.JoiningDate , i.IncentiveDate, DATEDIFF(dd,JoiningDate,GETDATE()) - DATEDIFF(dd,IncentiveDate,GETDATE()) AS 'Difference' FROM Employee e left join Incentives i on e.EmployeeId=i.EmployeeRefId
+SELECT e.FirstName, e.JoiningDate , i.IncentiveDate, 
+	DATEDIFF(dd,JoiningDate,GETDATE()) - DATEDIFF(dd,IncentiveDate,GETDATE()) AS 'Difference' 
+		FROM Employee e LEFT JOIN Incentives i ON e.EmployeeId=i.EmployeeRefId
 
 --Query-2
 --Select first_name, incentive amount from employee and incentives table for those employees who have incentives and incentive amount greater than 3000
-select e.FirstName,i.IncentiveAmount from Employee e join Incentives i on e.EmployeeId=i.EmployeeRefId where i.IncentiveAmount>3000
+SELECT e.FirstName,i.IncentiveAmount 
+	FROM Employee e JOIN Incentives i ON e.EmployeeId=i.EmployeeRefId 
+		WHERE i.IncentiveAmount>3000
 
 --Query-3
 --Select first_name, incentive amount from employee and incentives table for all employees even if they didn’t get incentives.
-select e.FirstName,i.IncentiveAmount from Employee e left join Incentives i on e.EmployeeId=i.EmployeeRefId
+SELECT e.FirstName,i.IncentiveAmount 
+	FROM Employee e LEFT JOIN Incentives i ON e.EmployeeId=i.EmployeeRefId
 
 --Query-4
 --Select EmployeeName, ManagerName from the employee table.
-select e.FirstName as 'EmployeeName', f.FirstName as 'ManagerName' from employee e left join employee f on e.ManagerId=f.EmployeeId
+SELECT e.FirstName AS 'EmployeeName', f.FirstName AS 'ManagerName' 
+	FROM employee e LEFT JOIN employee f ON e.ManagerId=f.EmployeeId
 
 
 --Query-5
 --Select first_name, incentive amount from employee and incentives table for all employees even if they didn’t get incentives and set incentive amount as 0 for those employees who didn’t get incentives.
-select e.FirstName, case when IncentiveAmount IS NULL then 0 else IncentiveAmount end as 'IncentiveAmount'
-from Employee e left join Incentives i on e.EmployeeId=i.EmployeeRefId 
+SELECT e.FirstName,	
+	CASE WHEN IncentiveAmount IS NULL THEN 0 
+		ELSE IncentiveAmount 
+		END 
+		AS 'IncentiveAmount'
+			FROM Employee e LEFT JOIN Incentives i ON e.EmployeeId=i.EmployeeRefId 
 
