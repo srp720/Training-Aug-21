@@ -7,7 +7,7 @@ SELECT * FROM Employees
 SELECT FirstName,LastName FROM Employees
 
 --Num3-Get FirstName from Employees table using alias name “Employee Name”
-SELECT 'Employee Name'= FirstName FROM Employees
+SELECT 'EmployeeName'= FirstName FROM Employees
 
 --Num4-Get employee details from Employees table whose Employee Name is “Steven”
 SELECT * FROM Employees WHERE FirstName= 'Steven'
