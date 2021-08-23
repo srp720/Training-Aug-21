@@ -41,6 +41,6 @@ SELECT DepartmentID, MIN(Salary) AS Salary FROM Employees GROUP BY DepartmentID 
 --Select department, total salary with respect to a department from employee table where total salary greater than 50000 order by TotalSalary descending
 SELECT * INTO Wages FROM 
 (SELECT DepartmentID, SUM(Salary) AS Salary 
-FROM Employees GROUP BY DepartmentID) temp 
+FROM Employees GROUP BY DepartmentID) temp
 
 SELECT * FROM Wages WHERE Salary>5000 ORDER BY SALARY DESC
