@@ -20,7 +20,7 @@ CREATE TABLE inventory(
 CarId INT PRIMARY KEY Identity(1,1),
 CarModel varchar(50) NOT NULL,
 CarBrand varchar(50) NOT NULL,
-CarPrice money,
+CarPrice money NOT NULL,
 );
 
 INSERT INTO inventory VALUES 
