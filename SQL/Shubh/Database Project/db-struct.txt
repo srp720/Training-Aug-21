@@ -1,4 +1,4 @@
-Post
+1. Post
 	PostId
 	Date 
 	Description
@@ -17,7 +17,7 @@ Post
 	Close_At
 	Pincode
 
-Role
+2. Role
 	Role_PermissionID
 	RoleType
 	Permission_Add
@@ -25,7 +25,7 @@ Role
 	Permission_View 
 	Permission_Delete
 
-User
+3. User
 	UserId
 	User_Type
 	First_Name
@@ -44,7 +44,7 @@ User
 	Daily_Post_Limit
 	Last_Posted_Date
 
-Event
+4. Event
 
 	EventId
 	EventName
@@ -58,7 +58,7 @@ Event
 	UpdatedBy
 	UpdatedAt
 
-Organisation
+5. Organisation
 
 	NgoId
 	NgoUserId FK User
@@ -70,7 +70,7 @@ Organisation
 	Ngo Logo_url
 	Additional Info	
 
-DonationType
+6. DonationType
 
 	DonationTypeId
 	DonationTypeName
@@ -79,22 +79,28 @@ DonationType
 	UpdatedBy
 	UpdatedAt
 
-Volunteer
+7. Volunteer
 
 	VolunteerId
 	VolunteerUserId FK User
 	VolunteerName FK User
 
-Help
+8. Help
 
 	Location FK Post
 	People_Count
 
-City
+9. City
 
-	DHRUVIT
+	
 
-State
+10. State
 
-	DHRUVIT
+11. Module
+
+12. Urgency
+
+13. Spam
+
+	
 
