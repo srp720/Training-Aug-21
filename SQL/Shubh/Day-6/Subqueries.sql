@@ -273,7 +273,11 @@ SELECT CONCAT(FirstName,' ',LastName) AS 'Employee_Name', Salary FROM Employees 
 
 
 --2. Find the names (first_name, last_name) of all employees who works in the IT department. 
-SELECT CONCAT(e.FirstName,' ',e.LastName) AS 'Employee_Name', d.DepartmentName FROM Employees e JOIN Departments d ON e.DepartmentID=d.DepartmentID WHERE d.DepartmentName='IT' 
+SELECT CONCAT(FirstName,' ', LastName) AS 'Name' 
+	FROM Employees 
+		WHERE DepartmentID=(SELECT DepartmentID FROM Departments WHERE DepartmentName = 'IT')
+
+
 
 
 --3. Find the names (first_name, last_name) of the employees who have a manager who works for a department based in United States. 
@@ -292,14 +296,13 @@ SELECT CONCAT(FirstName,' ',LastName) AS 'Employee_Name' FROM Employees
 
 --5. Find the names (first_name, last_name), salary of the employees whose salary is greater than the average salary. 
 SELECT CONCAT(FirstName,' ',LastName) AS 'Employee_Name', Salary FROM Employees 
-	WHERE Salary > (SELECT AVG(Salary) FROM Employees)
+	WHERE Salary>(SELECT AVG(Salary) FROM Employees)
 
 
 --6. Find the names (first_name, last_name), salary of the employees whose salary is equal to the minimum salary for their job grade. 
-SELECT CONCAT(e.FirstName,' ',e.LastName) AS 'Employee_Name', e.Salary, tmp.JobId AS 'Job_Grade' 
-	FROM Employees e JOIN 
-		(SELECT MIN(Salary) AS 'Minimum_Salary', JobId FROM Employees GROUP BY JobId) tmp 
-			ON e.JobId=tmp.JobId WHERE e.Salary=tmp.Minimum_Salary
+SELECT CONCAT(e.FirstName,' ', e.LastName) AS 'Name', e.Salary, e.JobId
+	FROM Employees e
+		WHERE e.Salary=(SELECT MIN(s.Salary) FROM Employees s WHERE e.JobId = s.JobId)
 
 
 --7. Find the names (first_name, last_name), salary of the employees who earn more than the average salary and who works in any of the IT departments. 
@@ -311,20 +314,19 @@ SELECT CONCAT(FirstName,' ',LastName) AS 'Employee_Name', Salary FROM Employees
 
 --8. Find the names (first_name, last_name), salary of the employees who earn more than Mr. Bell. 
 SELECT CONCAT(FirstName,' ',LastName) AS 'Employee_Name', Salary FROM Employees 
-	WHERE Salary > 
+	WHERE Salary>
 		(SELECT Salary FROM Employees WHERE LastName = 'Bell')
 
 
 --9. Find the names (first_name, last_name), salary of the employees who earn the same salary as the minimum salary for all departments. 
-SELECT CONCAT(e.FirstName,' ',e.LastName) AS 'Employee_Name', e.Salary AS 'Minimum_Salary' 
-	FROM Employees e JOIN 
-		(SELECT MIN(Salary) AS 'Minimum_Salary', DepartmentID FROM Employees GROUP BY DepartmentID) tmp 
-			ON e.DepartmentID=tmp.DepartmentID WHERE e.Salary=tmp.Minimum_Salary
+SELECT CONCAT(FirstName,' ', LastName) AS 'Name', Salary, DepartmentID FROM Employees 
+	WHERE Salary IN (SELECT MIN(Salary) FROM Employees GROUP BY DepartmentID)
+
 
 
 --10. Find the names (first_name, last_name), salary of the employees whose salary greater than average salary of all department. 
 SELECT CONCAT(FirstName,' ',LastName) AS 'Employee_Name', Salary AS 'More_Than_Average' 
-	FROM Employees WHERE Salary > ALL
+	FROM Employees WHERE Salary>ALL
 		(SELECT AVG(Salary)FROM Employees GROUP BY DepartmentID)
 
 
@@ -346,15 +348,13 @@ SELECT e.EmployeeID, e.FirstName, e.LastName, d.DepartmentName AS 'Department'
 
 
 --14. Write a query to display the employee ID, first name, last names, salary of all employees whose salary is above average for their departments. 
-SELECT e.EmployeeID, e.FirstName, e.LastName, e.Salary, e.DepartmentID, tmp.DepartmentID
-	FROM Employees e JOIN (SELECT AVG(Salary) AS Salary, DepartmentID 
-		FROM Employees GROUP BY DepartmentID) tmp 
-			ON e.DepartmentID=tmp.DepartmentID WHERE e.Salary > tmp.Salary 
-
+SELECT e.EmployeeID, e.FirstName, e.LastName, e.Salary FROM Employees e 
+	WHERE e.Salary> 
+		(SELECT AVG(s.Salary) FROM Employees s WHERE e.DepartmentID=s.DepartmentID)
 
 --15. Write a query to fetch even numbered records from employees table. 
 SELECT * FROM Employees  WHERE EmployeeID % 2 = 0
-
+  
 
 --16. Write a query to find the 5th maximum salary in the employees table. 
 SELECT DISTINCT Salary AS '5thMaxSalary' FROM 
@@ -386,8 +386,19 @@ SELECT DISTINCT TOP 3 Salary AS 'TOP-3 Max' FROM Employees ORDER BY Salary DESC
 SELECT DISTINCT TOP 3 Salary AS 'TOP-3 Min' FROM Employees ORDER BY Salary ASC
 
 
---22. Write a query to get nth max salaries of employees.
+--22. Write a query to get nth max salaries of employees......
 SELECT * FROM Employees e WHERE (n) = 
 	(SELECT COUNT(DISTINCT(em.Salary))
 		FROM Employees em
 			WHERE em.Salary > e.Salary)
+
+
+--SUBQUERY ASSIGNMENT
+--1. Select employee details from employee table if data exists in incentive table
+SELECT * FROM Employee e WHERE e.EmployeeId IN
+	(SELECT i.EmployeeRefId FROM Incentives i WHERE e.EmployeeId=i.EmployeeRefId)
+
+
+--2. Find Salary of the employee whose salary is more than McCalister Thomas's Salary
+SELECT e.Salary FROM Employee e WHERE e.Salary>
+	(SELECT em.Salary FROM Employee em WHERE em.FirstName='McCalister')
