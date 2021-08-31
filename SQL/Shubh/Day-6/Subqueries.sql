@@ -352,6 +352,7 @@ SELECT e.EmployeeID, e.FirstName, e.LastName, e.Salary FROM Employees e
 	WHERE e.Salary> 
 		(SELECT AVG(s.Salary) FROM Employees s WHERE e.DepartmentID=s.DepartmentID)
 
+
 --15. Write a query to fetch even numbered records from employees table. 
 SELECT * FROM Employees  WHERE EmployeeID % 2 = 0
   
@@ -402,3 +403,11 @@ SELECT * FROM Employee e WHERE e.EmployeeId IN
 --2. Find Salary of the employee whose salary is more than McCalister Thomas's Salary
 SELECT e.Salary FROM Employee e WHERE e.Salary>
 	(SELECT em.Salary FROM Employee em WHERE em.FirstName='McCalister')
+
+--7.Find the employee ID, job title, number of days between ending date and starting date for all jobs in department 90 from job history.
+
+--SELECT E.EmployeeID,J.JobID,DATEDIFF(DAY,J.StartDate,J.EndDate) AS 'Difference' FROM Employees E JOIN JobHistory J ON J.EmployeeId=E.EmployeeId WHERE E.DepartmentID=90 OR J.DepartmentID=90
+
+SELECT EmployeeID, JobID AS 'JobTitle', DATEDIFF(DAY,StartDate,EndDate) AS 'Difference' FROM JobHistory WHERE DepartmentID=90
+
+SELECT J.EmployeeID, D.DepartmentName AS 'JobTitle', DATEDIFF(DAY,StartDate,EndDate) AS 'Difference' FROM JobHistory J JOIN Departments D ON J.DepartmentID=D.DepartmentID WHERE J.DepartmentID=90
