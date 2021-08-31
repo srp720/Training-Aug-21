@@ -75,9 +75,9 @@ GROUP BY PostId
 SELECT Latitude, Longitude FROM Post WHERE PostId IN (1,2,3)
 
 
---12.Post on Location Search�
-SELECT P.PostId, UD.ProfileImage, UD.UserName, P.LocationName, P.ImageURL, P.Description, P.HelpRequiredCount,�
-CASE WHEN UC.UrgencyCount IS NULL THEN 0 ELSE UC.UrgencyCount END AS 'UrgencyCount',�
+--12.Post on Location Search
+SELECT P.PostId, UD.ProfileImage, UD.UserName, P.LocationName, P.ImageURL, P.Description, P.HelpRequiredCount,
+CASE WHEN UC.UrgencyCount IS NULL THEN 0 ELSE UC.UrgencyCount END AS 'UrgencyCount',
 CASE WHEN SC.SpamCount IS NULL THEN 0 ELSE SC.SpamCount END AS 'SpamCount'
 FROM Post P
 JOIN UserData UD ON P.UserId = UD.UserId
@@ -182,6 +182,7 @@ JOIN Cities C ON P.CityId = C.CityId
 WHERE P.IsClosed = 1
 GROUP BY YEAR(CreatedAt), C.CityName
 )
+
 , OpenNeeds
 AS (
 SELECT YEAR(CreatedAt) AS 'Year', C.CityName, COUNT(P.PostId) AS 'OpenPost'
@@ -190,12 +191,13 @@ JOIN Cities C ON P.CityId = C.CityId
 WHERE P.IsClosed = 0
 GROUP BY YEAR(CreatedAt), C.CityName
 )
-SELECT YEAR(P.CreatedAt) AS 'Year', C.CityName, COUNT(P.PostId) AS 'TotalPost', ISNULL(O.OpenPost,0) AS OpenPost, ISNULL(CN.ClosedPost,0)�AS ClosedPost
-FROM Post P
-JOIN Cities C ON P.CityId = C.CityId
-LEFT JOIN OpenNeeds O ON YEAR(P.CreatedAt) = O.Year AND (C.CityName = O.CityName)�
-LEFT JOIN ClosedNeeds CN ON YEAR(P.CreatedAt) = CN.Year AND (C.CityName = CN.CityName)
-GROUP BY YEAR(P.CreatedAt), C.CityName, O.OpenPost, CN.ClosedPost
+
+SELECT YEAR(P.CreatedAt) AS 'Year', C.CityName, COUNT(P.PostId) AS 'TotalPost', ISNULL(O.OpenPost,0) AS OpenPost, ISNULL(CN.ClosedPost,0) AS ClosedPost
+	FROM Post P
+		JOIN Cities C ON P.CityId = C.CityId
+		LEFT JOIN OpenNeeds O ON YEAR(P.CreatedAt) = O.Year AND (C.CityName = O.CityName)
+		LEFT JOIN ClosedNeeds CN ON YEAR(P.CreatedAt) = CN.Year AND (C.CityName = CN.CityName)
+			GROUP BY YEAR(P.CreatedAt), C.CityName, O.OpenPost, CN.ClosedPost
 
 
 -------------------------------------------------"OR"-------------------------------------------------
@@ -203,7 +205,7 @@ GROUP BY YEAR(P.CreatedAt), C.CityName, O.OpenPost, CN.ClosedPost
 
 SELECT ISNULL(YEAR(P.CreatedAt),1947) AS Year, C.CityName, COUNT(P.PostId) AS 'TotalPost',
     CASE
-00    WHEN P.IsClosed=0 THEN 'Requirements needs to be fulfilled'
+    WHEN P.IsClosed=0 THEN 'Requirements needs to be fulfilled'
     WHEN P.IsClosed=1 THEN 'Requirements fulfilled'
 	ELSE 'Have not posted yet'
 END AS Status
