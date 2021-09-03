@@ -46,4 +46,3 @@ WITH (
               DOB VARCHAR(50) '$.DOB',  
               Standard int '$.Standard'  
 	 )
-
