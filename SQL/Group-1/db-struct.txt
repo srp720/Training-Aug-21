@@ -1,98 +1,24 @@
+GROUP-1: Charity Databse For Underprivileged People
+Members: Dhruvit, Hemanshu, Niraj, Piyush, Shubh
+
+
 1. Post
-	PostId
-	Date 
-	Description
-	DonationTypeId
-	Location_Name
-	City
-	State
-	Longitude
-	Latitude
-	People_Count
-	ImageURL
-	Created_By
-	Created_At
-	Updated_By
-	Updated_At
-	Close_At
-	Pincode
-
-2. Role
-	Role_PermissionID
-	RoleType
-	Permission_Add
-	Permission_Edit
-	Permission_View 
-	Permission_Delete
-
-3. User
-	UserId
-	User_Type
-	First_Name
-	Last_Name
-	Location
-	Occupation
-	Profile_Image
-	User_Name
-	Email_Address
-	Password HASH
-	Mobile_No.
-	Verified Mob No. 
-	User_Status
-	Additional_Info
-	Total_Post_Count
-	Daily_Post_Limit
-	Last_Posted_Date
-
-4. Event
-
-	EventId
-	EventName
-	EventDate
-	EndDate
-	StartTime
-	EndTime
-	EventType
-	CreatedBy
-	CreatedAt
-	UpdatedBy
-	UpdatedAt
+	
+2. Roles
+	
+3. UserData
+	
+4. CharityEvent
 
 5. Organisation
 
-	NgoId
-	NgoUserId FK User
-	Ngo Name
-	Ngo Email Address FK User
-	Ngo Address
-	Ngo Description
-	Ngo Contact No.
-	Ngo Logo_url
-	Additional Info	
-
-6. DonationType
-
-	DonationTypeId
-	DonationTypeName
-	CreatedBy
-	CreatedAt
-	UpdatedBy
-	UpdatedAt
+6. RequirementType
 
 7. Volunteer
 
-	VolunteerId
-	VolunteerUserId FK User
-	VolunteerName FK User
-
-8. Help
-
-	Location FK Post
-	People_Count
+8. ClusterLocations
 
 9. City
-
-	
 
 10. State
 
@@ -102,5 +28,8 @@
 
 13. Spam
 
-	
+14. RoleType
 
+15. Pincode
+
+16. OTP
