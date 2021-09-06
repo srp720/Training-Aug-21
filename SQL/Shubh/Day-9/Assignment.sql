@@ -46,3 +46,5 @@ WITH (
               DOB VARCHAR(50) '$.DOB',  
               Standard int '$.Standard'  
 	 )
+
+SELECT * FOR Student JSON PATH
