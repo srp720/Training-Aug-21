@@ -2,7 +2,7 @@
 CREATE PROCEDURE Pro1
 @PostId INT
 AS
-	SELECT U.UserName, U.ProfileImage, GETDATE(), P.ImageURL, P.Description, P.RequirementTypeId, P.HelpRequiredCount, P.LocationName, C.CityName, P.PincodeId FROM Post P 
+	SELECT U.UserName, U.ProfileImage, GETDATE() as 'Today', P.ImageURL, P.Description, P.RequirementTypeId, P.HelpRequiredCount, P.LocationName, C.CityName, P.PincodeId FROM Post P 
 	JOIN UserData U ON P.UserId=U.UserId 
 	JOIN Cities C ON P.CityId=C.CityId
 	WHERE P.IsClosed=0 AND P.PostId=@PostId
@@ -95,4 +95,12 @@ AS
 	WHERE C.CityName=@City2 AND CE.IsVerified=1
 	ORDER BY C.CityName
 GO
+EXECUTE Pro7 'Ahmedabad'
+
+EXEC Pro1 3
+EXECUTE Pro2 1
+EXECUTE Pro3 5
+EXECUTE Pro4 9
+EXECUTE Pro5 5
+EXECUTE Pro6 'Vadodara'
 EXECUTE Pro7 'Ahmedabad'

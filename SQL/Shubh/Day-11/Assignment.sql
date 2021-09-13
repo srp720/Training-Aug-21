@@ -58,22 +58,36 @@ EXECUTE Bank5
 GO
 
 --Q6: Create a Procedure which will accept input in JSON parameter CustomerName,City, ACTNO,Branch,amount And insert these record in the Deposit table. Before inserting some validation should be done like amount should be greater than 10Rs. and date should always be current date.
+CREATE DROP TABLE Deposits
+(
+	Name VARCHAR(50),
+	City VARCHAR(60),
+	Account VARCHAR(20),
+	Branch VARCHAR(30),
+	Amount INT CHECK (Amount > 10)
+
+)
+GO
+
+CREATE PROCEDURE Bank6
+@Insert NVARCHAR(MAX)
+AS
+	BEGIN 
+		INSERT INTO Deposits
+		SELECT * FROM OPENJSON (@Json)  WHERE Amount > 10
+		WITH (   
+              Name VARCHAR(200) '$.CustomerName' , 
+			  City NVARCHAR(60) '$.City',
+              AccountNumber VARCHAR(30)'$.AccountNumber',  
+              Branch VARCHAR(50) '$.Branch',  
+              Amount INT '$.Amount'  
+			)
+	END
+GO
+
 DECLARE @Json NVARCHAR(MAX)
 SET @Json=
 	N'[{"CustomerName":"Shubh","City":"Ahmedabad","AccountNumber":"648486","Branch":"Baroda","Amount":"10"},
 	{"CustomerName":"Messi","City":"Buenos Aires","AccountNumber":"10GOAT10","Branch":"Barcelona","Amount":"101010"}
 ]';
-CREATE PROCEDURE Bank6
-@Json NVARCHAR(MAX)
-BEGIN 
-INSERT INTO Deposit
-SELECT * FROM OPENJSON (@Json)  WHERE Amount > 10
-WITH (   
-              Name VARCHAR(200) '$.CustomerName' , 
-			  City NVARCHAR(MAX) '$.City',
-              AccountNumber VARCHAR(30)'$.AccountNumber',  
-              Branch VARCHAR(50) '$.Branch',  
-              Amount INT '$.Amount'  
-	 )
-END
-GO
+EXEC Bank6 @Insert=@Json
