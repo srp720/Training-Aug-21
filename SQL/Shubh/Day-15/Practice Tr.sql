@@ -23,7 +23,7 @@ GO
 COMMIT TRANSACTION CustomerDelete;  
 GO 
 
---4. 
+--4. Isolation
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;  
 GO  
 BEGIN TRANSACTION;  
@@ -38,7 +38,7 @@ COMMIT TRANSACTION;
 GO  
 
 
---5.
+--5. Implicit Transaction
 SET IMPLICIT_TRANSACTIONS ON 
 UPDATE 
     DetroitBank 
@@ -54,4 +54,11 @@ SELECT
     ) AS 'Transaction Mode' 
 SELECT 
     @@TRANCOUNT AS OpenTransactions 
-COMMIT TRAN 
+COMMIT TRANSACTION
+
+--6. Non Cluster Index
+USE CharityDatabase
+CREATE NONCLUSTERED INDEX NonClusteredIXUID
+ON Post (UserId)
+CREATE NONCLUSTERED INDEX ClustereUIDIX
+ON ClusterLocations (UserId)
