@@ -88,3 +88,22 @@
       margin-left: 10px;
     }
   }
+
+  table.a{text-align: center;
+    height: 300px;
+    width: 700px;
+    }
+p{border-style:dashed;
+height: 150px;
+width: 310px;
+padding-top: 5px;
+padding-left: 5px;
+padding-bottom: 5px;
+}
+li{display:inline-table;}
+* {
+ background-color: lightskyblue}    
+
+.a{
+  border: 2;
+}
