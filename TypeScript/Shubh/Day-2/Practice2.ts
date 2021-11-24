@@ -113,16 +113,16 @@ cat.meow();
 
 //getter / setter
 
-class C {
-    _length = 0;
-    get length() {
-        return this._length;
-    }
+// class C {
+//     _length = 0;
+//     get length() {
+//         return this._length;
+//     }
 
-    set length(value) {
-        this._length = value;
-    }
-}
+//     set length(value) {
+//         this._length = value;
+//     }
+// }
 
 
 //implement clause
