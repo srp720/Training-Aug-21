@@ -26,7 +26,7 @@ class BeeKeeper {
   createInstance(Lion).keeper.nametag;
   createInstance(Bee).keeper.hasMask;
 
-// NameSpace
+// NameSpaces
   namespace Validation {
     export interface StringValidator {
       isAcceptable(s: string): boolean;
@@ -60,3 +60,49 @@ class BeeKeeper {
       );
     }
   }
+  
+//generic function
+function display<T>(args: T): T{
+    return args;
+}
+let output1 = display<string>("welcome");
+let output2 = display<number>(100);
+console.log(output2);
+console.log(output1);
+
+// Generic class
+class StudentInfo<T, U>{
+    private Id: T;
+    private Name: U;
+    setValue(id:T,name:U): void{
+        this.Id = id;
+        this.Name = name;
+
+    }
+    display(): void{
+        console.log(`Id=${this.Id},Name=${this.Name}`);
+    }
+}
+let st = new StudentInfo<number, string>();
+st.setValue(10, "Leo Messi");
+st.display();
+let std = new StudentInfo<string, string>();
+std.setValue("201", "Sergio Busquets");
+st.display();
+
+// Generic interface as function
+interface StudentInfo1<T, U>{
+    (id: T, value: U): void;
+}
+
+function studentData(id:number,value:string):void {
+    console.log('Id= '+id+', \nName = '+value)
+}
+function studentData1(id:string,value:string):void {
+  console.log('Id= '+id+', \nName = '+value)
+}
+
+let stdd: StudentInfo1<number, string> = studentData;
+stdd(11, "Chhteri");
+
+

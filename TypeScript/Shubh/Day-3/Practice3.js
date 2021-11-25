@@ -55,7 +55,7 @@ function createInstance(c) {
 }
 createInstance(Lion).keeper.nametag;
 createInstance(Bee).keeper.hasMask;
-// NameSpace
+// NameSpaces
 var Validation;
 (function (Validation) {
     var lettersRegexp = /^[A-Za-z]+$/;
@@ -92,3 +92,38 @@ for (var _i = 0, strings_1 = strings; _i < strings_1.length; _i++) {
         console.log("\"".concat(s, "\" - ").concat(validators[name_1].isAcceptable(s) ? "matches" : "does not match", " ").concat(name_1));
     }
 }
+//generic function
+function display(args) {
+    return args;
+}
+var output1 = display("welcome");
+var output2 = display(100);
+console.log(output2);
+console.log(output1);
+// Generic class
+var StudentInfo = /** @class */ (function () {
+    function StudentInfo() {
+    }
+    StudentInfo.prototype.setValue = function (id, name) {
+        this.Id = id;
+        this.Name = name;
+    };
+    StudentInfo.prototype.display = function () {
+        console.log("Id=".concat(this.Id, ",Name=").concat(this.Name));
+    };
+    return StudentInfo;
+}());
+var st = new StudentInfo();
+st.setValue(10, "Leo Messi");
+st.display();
+var std = new StudentInfo();
+std.setValue("201", "Sergio Busquets");
+st.display();
+function studentData(id, value) {
+    console.log('Id= ' + id + ', \nName = ' + value);
+}
+function studentData1(id, value) {
+    console.log('Id= ' + id + ', \nName = ' + value);
+}
+var stdd = studentData;
+stdd(11, "Chhteri");
