@@ -62,11 +62,6 @@ enum FileAccess {
     //computed member
     nameLength = "Shubh".length,
 }
-
-
-
-
-
 //constructor
 
 class Point2 {
